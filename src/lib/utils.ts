@@ -2,6 +2,9 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
+import { text } from "@sveltejs/kit";
+import { string } from "zod";
+import CryptoJS from 'crypto-js'
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -60,3 +63,21 @@ export const flyAndScale = (
         easing: cubicOut
     };
 };
+
+export function randomString(len: number) {
+    var p = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    return [...Array(len)].reduce(a => a + p[~~(Math.random() * p.length)], '');
+}
+
+
+export function hash(text: string) {
+    return CryptoJS.SHA256(text).toString(CryptoJS.enc.Hex)
+}
+
+export function encryptAES(text: string, password: string) {
+    return CryptoJS.AES.encrypt(text, password).toString();
+}
+
+export function decryptAES(text: string, password: string) {
+    return CryptoJS.AES.decrypt(text, password).toString(CryptoJS.enc.Utf8);
+}

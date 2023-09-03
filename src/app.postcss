@@ -70,10 +70,11 @@
  
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border m-0 p-0;
   }
   html, body {
-    height: 100%;
+    min-height: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
     @apply bg-background text-foreground;

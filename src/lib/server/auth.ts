@@ -3,10 +3,11 @@ This module holds everything related to authentication
 Read More: https://authjs.dev
 */
 
-import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, AUTH_SECRET } from "$env/static/private";
+import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, AUTH_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from "$env/static/private";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { SvelteKitAuth } from "@auth/sveltekit";
 import GithubProvider from '@auth/core/providers/github';
+import GoogleProvider from '@auth/core/providers/google';
 import { prisma } from "$lib/server/db";
 
 const authHandler = SvelteKitAuth({
@@ -14,8 +15,14 @@ const authHandler = SvelteKitAuth({
         // Github Provider
         GithubProvider({
             clientId: GITHUB_CLIENT_ID,
-            clientSecret: GITHUB_CLIENT_SECRET
+            clientSecret: GITHUB_CLIENT_SECRET,
+            allowDangerousEmailAccountLinking: true
         }),
+        GoogleProvider({
+            clientId: GOOGLE_CLIENT_ID,
+            clientSecret: GOOGLE_CLIENT_SECRET,
+            allowDangerousEmailAccountLinking: true
+        })
         /*
             Add More Providers like, google, discord
             Read More about it here:

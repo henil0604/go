@@ -10,11 +10,6 @@
 			href: '/'
 		},
 		{
-			icon: 'material-symbols:explore-outline',
-			name: 'Explore',
-			href: '/explore'
-		},
-		{
 			icon: 'mdi:plus',
 			name: 'Create',
 			href: '/create'
@@ -33,13 +28,15 @@
 			<p>Shortener</p>
 		</div>
 	</div>
+	<hr />
 
 	<!-- Items -->
 	<div class="w-full flex max-md:justify-between md:flex-col">
 		{#each items as item}
 			<Button
 				variant="ghost"
-				class="flex gap-2 max-md:w-full rounded-none justify-start {$page.url.pathname === item.href
+				class="flex gap-2 px-7 max-md:w-full rounded-none justify-start max-md:justify-center {$page
+					.url.pathname === item.href
 					? 'bg-orange-600 hover:bg-orange-700'
 					: ''}"
 				href={item.href}

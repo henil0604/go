@@ -39,9 +39,8 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid()) @map("_id")
-  email         String?   @unique
-  username      String?   @unique
+  id            String     @id @default(cuid()) @map("_id")
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
   name          String?
@@ -49,6 +48,8 @@ model User {
   // eg. gender, bio...
   accounts      Account[]
   sessions      Session[]
+  links         Link[]
+  redirects     Redirect[]
 }
 
 model VerificationToken {
@@ -58,4 +59,39 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Link {
+  id String @id @default(cuid()) @map("_id")
+
+  url                String
+  alias              String?
+  passwordProtection Boolean @default(false)
+  password           String?
+  selfBurn           Boolean @default(false)
+  requiresAuth       Boolean @default(false)
+
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId String
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  redirects Redirect[]
+
+  redirect_count       Int @default(0)
+  unique_visitor_count Int @default(0)
+}
+
+model Redirect {
+  id String @id @default(cuid()) @map("_id")
+
+  link   Link   @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  linkId String
+
+  ip String?
+
+  visitor   User?   @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  visitorId String?
+
+  redirectedAt DateTime @default(now())
 }
