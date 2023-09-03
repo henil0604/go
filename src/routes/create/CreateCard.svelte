@@ -67,7 +67,7 @@
 		return resolve(available);
 	}, 600);
 
-	const urlField = field('url', 'https://google.com', [url(), required()], {
+	const urlField = field('url', '', [url(), required()], {
 		checkOnInit: true
 	});
 	const aliasField = field('alias', '', [pattern(REGEX.URL_FRIENDLY)], {
