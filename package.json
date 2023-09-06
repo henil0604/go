@@ -47,6 +47,7 @@
 		"@auth/sveltekit": "^0.3.6",
 		"@trpc/client": "^10.35.0",
 		"@trpc/server": "^10.35.0",
+		"@vercel/kv": "^0.2.2",
 		"bits-ui": "^0.5.3",
 		"clsx": "^2.0.0",
 		"crypto-js": "^4.1.1",
